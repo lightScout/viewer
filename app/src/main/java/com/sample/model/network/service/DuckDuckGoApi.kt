@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface DuckDuckGoService {
+interface DuckDuckGoApi {
     @GET("/")
     suspend fun getCharacters(
         @Query(QUERY) query: String,
