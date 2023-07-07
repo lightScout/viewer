@@ -5,6 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ErrorViewMode(
-    var errorCode: String,
-    var errorMessageResourceId: Int
+    var errorMessage: String
 ) : Parcelable
