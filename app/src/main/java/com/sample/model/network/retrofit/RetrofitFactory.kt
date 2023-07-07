@@ -1,4 +1,4 @@
-package com.sample.model.network.service
+package com.sample.model.network.retrofit
 
 import com.sample.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient

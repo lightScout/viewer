@@ -1,4 +1,4 @@
-package com.sample.model.network.service
+package com.sample.model.network.api
 
 import com.sample.model.data.CharactersData
 import com.sample.util.Constants.Companion.FORMAT
