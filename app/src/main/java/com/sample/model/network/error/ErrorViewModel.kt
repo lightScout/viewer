@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ErrorViewMode(
+data class ErrorViewModel(
     var errorMessage: String
 ) : Parcelable

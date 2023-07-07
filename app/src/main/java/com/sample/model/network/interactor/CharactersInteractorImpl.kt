@@ -1,7 +1,7 @@
 package com.sample.model.network.interactor
 
 import com.sample.model.data.CharactersData
-import com.sample.model.network.error.ErrorViewMode
+import com.sample.model.network.error.ErrorViewModel
 import com.sample.model.network.service.DuckDuckGoService
 
 class CharactersInteractorImpl(private val service: DuckDuckGoService) : CharactersInteractor {
@@ -19,8 +19,8 @@ class CharactersInteractorImpl(private val service: DuckDuckGoService) : Charact
     }
 }
 
-private fun Throwable.toErrorViewModel(): ErrorViewMode {
-    return ErrorViewMode(
+private fun Throwable.toErrorViewModel(): ErrorViewModel {
+    return ErrorViewModel(
         errorMessage = this.message ?: "Unknown error"
     )
 }
