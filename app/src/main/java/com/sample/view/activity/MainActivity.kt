@@ -1,7 +1,8 @@
-package com.sample
+package com.sample.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sample.R
 import com.sample.viewmodel.CharactersListViewModel
 import com.sample.viewmodel.CharactersListViewModelState
 import org.koin.android.ext.android.inject
