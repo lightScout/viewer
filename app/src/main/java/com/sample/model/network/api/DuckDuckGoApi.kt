@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface DuckDuckGoApi {
     @GET("/")
     suspend fun getCharacters(
-        @Query(QUERY) query: String,
+        @Query(QUERY, encoded = true) query: String,
         @Query(FORMAT) format: String
     ): CharactersData
 }

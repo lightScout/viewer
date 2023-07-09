@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.BuildConfig
 import com.sample.model.network.interactor.CharactersInteractor
+import com.sample.model.network.interactor.CharactersInteractorImpl
 import com.sample.util.Constants.Companion.SIMPSONS_FLAVOR
 import com.sample.util.Constants.Companion.SIMPSONS_QUERY
 import com.sample.util.Constants.Companion.THE_WIRE_QUERY
 import kotlinx.coroutines.launch
 
 
-class CharactersListViewModel(private val charactersInteractor: CharactersInteractor) :
+class CharactersListViewModel(private val charactersInteractor: CharactersInteractorImpl) :
     ViewModel() {
 
     private val _charactersListState = MutableLiveData<CharactersListViewModelState>()
