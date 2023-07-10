@@ -26,7 +26,7 @@ class CharacterListAdapter(private var charactersList: MutableList<RelatedTopic>
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.slide_in_left)
         charactersList[position].let {
-            holder.binding.characterNameTextView.text = it.Text
+            holder.binding.characterNameTextView.text = it.Text.substringBefore(" - ").substringBefore(" (")
         }
     }
 
