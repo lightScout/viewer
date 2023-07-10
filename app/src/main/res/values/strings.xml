@@ -2,5 +2,6 @@
     <string name="app_name">Viewer</string>
     <string name="simpsons_title">Simpsons Characters</string>
     <string name="the_wire_title">The Wire Characters</string>
-    <string name="search_hint">Search</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search character name</string>
 </resources>
