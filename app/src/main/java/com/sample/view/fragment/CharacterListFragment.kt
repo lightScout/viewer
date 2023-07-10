@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sample.databinding.CharacterListFragmentLayoutBinding
 import com.sample.view.adapter.CharacterListAdapter
 import com.sample.viewmodel.CharactersListViewModel
@@ -43,7 +44,7 @@ class CharacterListFragment : Fragment() {
                 )
             )
             it.characterListRecyclerView.layoutManager =
-                androidx.recyclerview.widget.LinearLayoutManager(context)
+                LinearLayoutManager(context)
             it.characterListRecyclerView.adapter = listAdapter
         }
     }
