@@ -2,6 +2,7 @@ package com.sample.view.activity
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.widget.SearchView
@@ -46,6 +47,18 @@ class MainActivity : AppCompatActivity() {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
         }
         return true
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (Intent.ACTION_SEARCH == intent?.action) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+
+        }
     }
 
 
