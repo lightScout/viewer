@@ -68,7 +68,7 @@ class CharacterListFragment : Fragment() {
         }
 
         sharedViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
-            val a = query
+            listAdapter.searchCharacterList(query)
         }
     }
 }

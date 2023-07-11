@@ -32,6 +32,13 @@ class CharacterListAdapter(private var charactersList: MutableList<RelatedTopic>
 
     override fun getItemCount(): Int = charactersList.size
 
+    fun searchCharacterList(searchTerm: String) {
+        charactersList = charactersList.filter {
+            it.Text.contains(searchTerm, true)
+        }.toMutableList()
+        notifyDataSetChanged()
+    }
+
     fun updateList(charactersList: List<RelatedTopic>) {
         this.charactersList.clear()
         this.charactersList.addAll(charactersList)
