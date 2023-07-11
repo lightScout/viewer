@@ -2,14 +2,15 @@ package com.sample.view.activity
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.BuildConfig
 import com.sample.R
 import com.sample.databinding.ActivityMainBinding
+import com.sample.util.Constants.Companion.EMPTY_QUERY
 import com.sample.util.Constants.Companion.SIMPSONS_FLAVOR
 import com.sample.view.fragment.CharacterListFragment
 import com.sample.viewmodel.SharedViewModel
@@ -24,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        launchCharacterListFragment()
         configTitle()
+        launchCharacterListFragment()
     }
 
     private fun configTitle() {
@@ -44,23 +45,40 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
+        menu?.findItem(R.id.search)?.setOnActionExpandListener(object :
+            MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                (item.actionView as SearchView).apply {
+                    sharedViewModel.setSearchQuery(this.query.toString())
+                    requestFocus()
+                }
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                sharedViewModel.setSearchQuery(EMPTY_QUERY)
+                return true
+            }
+        })
+
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu?.findItem(R.id.search)?.actionView as SearchView).apply {
+            this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    sharedViewModel.setSearchQuery(query ?: EMPTY_QUERY)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    sharedViewModel.setSearchQuery(newText ?: EMPTY_QUERY)
+                    return true
+                }
+            })
+            isIconifiedByDefault = false
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
         }
         return true
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(null)
-        handleIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent?) {
-        if (Intent.ACTION_SEARCH == intent?.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.let { sharedViewModel.setSearchQuery(it) }
-        }
     }
 
 
