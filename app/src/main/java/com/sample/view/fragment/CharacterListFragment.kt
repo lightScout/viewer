@@ -11,6 +11,7 @@ import com.sample.databinding.CharacterListFragmentLayoutBinding
 import com.sample.view.adapter.CharacterListAdapter
 import com.sample.viewmodel.CharactersListViewModel
 import com.sample.viewmodel.CharactersListViewModelState
+import com.sample.viewmodel.SharedViewModel
 import org.koin.android.ext.android.inject
 
 
@@ -18,6 +19,7 @@ class CharacterListFragment : Fragment() {
 
     private lateinit var binding: CharacterListFragmentLayoutBinding
     private val viewModel: CharactersListViewModel by inject()
+    private val sharedViewModel: SharedViewModel by inject()
     private val listAdapter = CharacterListAdapter(mutableListOf())
 
     override fun onCreateView(
@@ -63,6 +65,10 @@ class CharacterListFragment : Fragment() {
                     // not required
                 }
             }
+        }
+
+        sharedViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            val a = query
         }
     }
 }

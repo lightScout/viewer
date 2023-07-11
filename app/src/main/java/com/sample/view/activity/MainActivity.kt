@@ -12,10 +12,13 @@ import com.sample.R
 import com.sample.databinding.ActivityMainBinding
 import com.sample.util.Constants.Companion.SIMPSONS_FLAVOR
 import com.sample.view.fragment.CharacterListFragment
+import com.sample.viewmodel.SharedViewModel
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val sharedViewModel: SharedViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleIntent(intent: Intent?) {
         if (Intent.ACTION_SEARCH == intent?.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-
+            intent.getStringExtra(SearchManager.QUERY)?.let { sharedViewModel.setSearchQuery(it) }
         }
     }
 

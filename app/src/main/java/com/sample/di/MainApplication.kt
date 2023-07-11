@@ -5,6 +5,7 @@ import com.sample.model.network.interactor.CharactersInteractorImpl
 import com.sample.model.network.retrofit.RetrofitFactory
 import com.sample.model.network.service.DuckDuckGoService
 import com.sample.viewmodel.CharactersListViewModel
+import com.sample.viewmodel.SharedViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,6 +21,7 @@ class MainApplication : Application() {
         single { DuckDuckGoService(get()) }
         single { CharactersInteractorImpl(get())}
         viewModel { CharactersListViewModel(get()) }
+        single { SharedViewModel() }
     }
 
     override fun onCreate() {
