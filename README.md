@@ -1,2 +1,2 @@
 # Viewer
-A RESTful data view with build flavours and tablet support 
+A RESTful data viewer with build flavours, search and tablet support
