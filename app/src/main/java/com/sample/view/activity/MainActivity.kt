@@ -26,11 +26,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val sharedViewModel: SharedViewModel by inject()
+    private var isTablet = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        isTablet = binding.fragmentContainer2 != null
         observeViewModel()
         configTitle()
         launchCharacterListFragment()
@@ -39,9 +41,20 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
             sharedViewModel.characterData.collectLatest { data ->
-                val intent = Intent(this@MainActivity, CharacterDetailActivity::class.java)
-                intent.putExtra(CharacterDetailFragment.CHARACTER_DATA, data)
-                startActivity(intent)
+                if (isTablet) {
+                    val bundle = Bundle()
+                    bundle.putParcelable(CharacterDetailFragment.CHARACTER_DATA, data)
+                    bundle.putBoolean(CharacterDetailFragment.IS_TABLET, isTablet)
+                    val fragment = CharacterDetailFragment.newInstance()
+                    fragment.arguments = bundle
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container_2, fragment)
+                        .commit()
+                } else {
+                    val intent = Intent(this@MainActivity, CharacterDetailActivity::class.java)
+                    intent.putExtra(CharacterDetailFragment.CHARACTER_DATA, data)
+                    startActivity(intent)
+                }
             }
         }
     }

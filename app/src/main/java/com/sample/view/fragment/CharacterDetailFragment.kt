@@ -17,6 +17,7 @@ class CharacterDetailFragment : Fragment() {
     private lateinit var binding: CharacterDetailFragmentLayoutBinding
 
     companion object {
+        const val IS_TABLET = "isTablet"
         const val CHARACTER_DATA = "characterData"
 
         fun newInstance(): CharacterDetailFragment {
@@ -41,11 +42,16 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        if (arguments?.getBoolean(IS_TABLET) == false) {
+            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        }
     }
 
     private fun setupUI() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        if (arguments?.getBoolean(IS_TABLET) == false) {
+            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        }
+
         (arguments?.getParcelable(CHARACTER_DATA) as RelatedTopic?).let {
             it?.let {
                 if (BuildConfig.FLAVOR == Constants.SIMPSONS_FLAVOR) {
