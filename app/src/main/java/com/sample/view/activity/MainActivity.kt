@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.sample.BuildConfig
 import com.sample.R
 import com.sample.databinding.ActivityMainBinding
@@ -18,6 +19,7 @@ import com.sample.util.showKeyboard
 import com.sample.view.fragment.CharacterDetailFragment
 import com.sample.view.fragment.CharacterListFragment
 import com.sample.viewmodel.SharedViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -35,10 +37,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        sharedViewModel.characterData.observe(this) { character ->
-            val intent = Intent(this, CharacterDetailActivity::class.java)
-            intent.putExtra(CharacterDetailFragment.CHARACTER_DATA, character)
-            startActivity(intent)
+        lifecycleScope.launchWhenStarted {
+            sharedViewModel.characterData.collectLatest { data ->
+                val intent = Intent(this@MainActivity, CharacterDetailActivity::class.java)
+                intent.putExtra(CharacterDetailFragment.CHARACTER_DATA, data)
+                startActivity(intent)
+            }
         }
     }
 
