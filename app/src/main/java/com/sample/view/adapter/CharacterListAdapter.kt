@@ -60,8 +60,7 @@ class CharacterListAdapter(
                 charactersList.addAll(referenceList)
             }
             charactersList = charactersList.filter {
-                it.Text.substringBefore(DELIMITER_1).substringBefore(DELIMITER_2)
-                    .contains(searchTerm, true)
+                it.Text.contains(searchTerm, true)
             }.toMutableList()
             notifyDataSetChanged()
         }
