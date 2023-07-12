@@ -2,6 +2,7 @@ package com.sample.view.activity
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import com.sample.R
 import com.sample.databinding.ActivityMainBinding
 import com.sample.util.Constants.Companion.EMPTY_QUERY
 import com.sample.util.Constants.Companion.SIMPSONS_FLAVOR
+import com.sample.view.fragment.CharacterDetailFragment
 import com.sample.view.fragment.CharacterListFragment
 import com.sample.viewmodel.SharedViewModel
 import org.koin.android.ext.android.inject
@@ -25,8 +27,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        observeViewModel()
         configTitle()
         launchCharacterListFragment()
+    }
+
+    private fun observeViewModel() {
+        sharedViewModel.characterData.observe(this) { character ->
+            val intent = Intent(this, CharacterDetailActivity::class.java)
+            intent.putExtra(CharacterDetailFragment.CHARACTER_DATA, character)
+            startActivity(intent)
+        }
     }
 
     private fun configTitle() {
@@ -45,6 +56,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
+        val a = menu?.findItem(R.id.search)?.let {
+            it.actionView as SearchView
+        }
         menu?.findItem(R.id.search)?.setOnActionExpandListener(object :
             MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {

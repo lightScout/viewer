@@ -20,7 +20,9 @@ class CharacterListFragment : Fragment() {
     private lateinit var binding: CharacterListFragmentLayoutBinding
     private val viewModel: CharactersListViewModel by inject()
     private val sharedViewModel: SharedViewModel by inject()
-    private val listAdapter = CharacterListAdapter(mutableListOf())
+    private val listAdapter = CharacterListAdapter(mutableListOf()) {
+        sharedViewModel.setCharacterData(it)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,10 @@ class CharacterListFragment : Fragment() {
             it.characterListRecyclerView.layoutManager =
                 LinearLayoutManager(context)
             it.characterListRecyclerView.adapter = listAdapter
+
+            it.characterListRecyclerView.setOnClickListener {
+
+            }
         }
     }
 

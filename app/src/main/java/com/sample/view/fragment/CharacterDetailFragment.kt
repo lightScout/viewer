@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.sample.BuildConfig
 import com.sample.R
@@ -16,6 +17,8 @@ class CharacterDetailFragment : Fragment() {
     private lateinit var binding: CharacterDetailFragmentLayoutBinding
 
     companion object {
+        const val CHARACTER_DATA = "characterData"
+
         fun newInstance(): CharacterDetailFragment {
             return CharacterDetailFragment()
         }
@@ -32,7 +35,18 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (arguments?.getParcelable("characterData") as RelatedTopic?).let {
+        setupUI()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+    }
+
+    private fun setupUI() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        (arguments?.getParcelable(CHARACTER_DATA) as RelatedTopic?).let {
             it?.let {
                 if (BuildConfig.FLAVOR == Constants.SIMPSONS_FLAVOR) {
                     binding.characterImageView.setImageResource(R.drawable.simpsons)

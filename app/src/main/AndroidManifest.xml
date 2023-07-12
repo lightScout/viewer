@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sample">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".di.MainApplication"
         android:allowBackup="true"
@@ -13,19 +12,24 @@
         android:theme="@style/Theme.Viewer">
         <activity
             android:name=".view.activity.MainActivity"
-            android:launchMode="singleTop"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
 
         </activity>
+
+        <activity
+            android:name=".view.activity.CharacterDetailActivity"
+            android:exported="true" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

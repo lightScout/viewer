@@ -10,7 +10,10 @@ import com.sample.model.data.RelatedTopic
 import com.sample.util.Constants.Companion.DELIMITER_1
 import com.sample.util.Constants.Companion.DELIMITER_2
 
-class CharacterListAdapter(private var charactersList: MutableList<RelatedTopic>) :
+class CharacterListAdapter(
+    private var charactersList: MutableList<RelatedTopic>,
+    val clickListener: (RelatedTopic) -> Unit
+) :
     RecyclerView.Adapter<CharacterListAdapter.ViewHolder>() {
 
     private val referenceList = mutableListOf<RelatedTopic>()
@@ -30,11 +33,15 @@ class CharacterListAdapter(private var charactersList: MutableList<RelatedTopic>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.slide_in_left)
-        charactersList[position].let {
+        charactersList[position].let { data ->
             holder.binding.characterNameTextView.text =
-                it.Text.substringBefore(DELIMITER_1).substringBefore(
+                data.Text.substringBefore(DELIMITER_1).substringBefore(
                     DELIMITER_2
                 )
+
+            holder.itemView.setOnClickListener {
+                clickListener(data)
+            }
         }
     }
 
