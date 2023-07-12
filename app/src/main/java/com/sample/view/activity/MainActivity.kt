@@ -13,6 +13,8 @@ import com.sample.R
 import com.sample.databinding.ActivityMainBinding
 import com.sample.util.Constants.Companion.EMPTY_QUERY
 import com.sample.util.Constants.Companion.SIMPSONS_FLAVOR
+import com.sample.util.hideKeyboard
+import com.sample.util.showKeyboard
 import com.sample.view.fragment.CharacterDetailFragment
 import com.sample.view.fragment.CharacterListFragment
 import com.sample.viewmodel.SharedViewModel
@@ -65,12 +67,14 @@ class MainActivity : AppCompatActivity() {
                 (item.actionView as SearchView).apply {
                     sharedViewModel.setSearchQuery(this.query.toString())
                     requestFocus()
+                    this@MainActivity.showKeyboard()
                 }
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 sharedViewModel.setSearchQuery(EMPTY_QUERY)
+                this@MainActivity.hideKeyboard()
                 return true
             }
         })
